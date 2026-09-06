@@ -77,6 +77,12 @@ iframe{
       src = baseUrl + '?page=body&view=change&period=90d';
     } else if (route === 'body-change-all') {
       src = baseUrl + '?page=body&view=change&period=all';
+    } else if (route === 'body-trends-30d') {
+      src = baseUrl + '?page=body&view=trends&period=30d';
+    } else if (route === 'body-trends-90d') {
+      src = baseUrl + '?page=body&view=trends&period=90d';
+    } else if (route === 'body-trends-all') {
+      src = baseUrl + '?page=body&view=trends&period=all';
     } else {
       src = baseUrl;
     }
