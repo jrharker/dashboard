@@ -58,18 +58,28 @@ iframe{
 </div>
 
 
+
 <script>
 (function() {
   var frame = document.getElementById('dashboardFrame');
   var baseUrl = 'https://script.google.com/macros/s/AKfycbzmlU9QK4Bio6JDcoWQTsmmdRC4Dw1hSIIjdiHKhF6Veu0N9DJen2SFjQwbGukQT30M9w/exec';
-  var params = new URLSearchParams(window.location.search);
-  var view = (params.get('view') || 'weight').toLowerCase();
 
-  if (view === 'body' || view === 'bodycomposition') {
-    frame.src = baseUrl + '?page=body';
-  } else {
-    frame.src = baseUrl;
+  function applyRoute() {
+    var view = (window.location.hash || '#weight').replace('#', '').toLowerCase();
+
+    if (view === 'body' || view === 'bodycomposition') {
+      if (frame.getAttribute('src') !== baseUrl + '?page=body') {
+        frame.src = baseUrl + '?page=body';
+      }
+    } else {
+      if (frame.getAttribute('src') !== baseUrl) {
+        frame.src = baseUrl;
+      }
+    }
   }
+
+  window.addEventListener('hashchange', applyRoute);
+  applyRoute();
 })();
 </script>
 
