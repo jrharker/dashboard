@@ -57,21 +57,19 @@ iframe{
   <div class="safe-bottom"></div>
 </div>
 
+
 <script>
 (function() {
   var frame = document.getElementById('dashboardFrame');
   var baseUrl = 'https://script.google.com/macros/s/AKfycbzmlU9QK4Bio6JDcoWQTsmmdRC4Dw1hSIIjdiHKhF6Veu0N9DJen2SFjQwbGukQT30M9w/exec';
+  var params = new URLSearchParams(window.location.search);
+  var view = (params.get('view') || 'weight').toLowerCase();
 
-  window.addEventListener('message', function(event) {
-    var data = event && event.data;
-    if (!data || data.type !== 'weight-dashboard-nav') return;
-
-    if (data.page === 'body') {
-      frame.src = baseUrl + '?page=body';
-    } else if (data.page === 'weight') {
-      frame.src = baseUrl;
-    }
-  });
+  if (view === 'body' || view === 'bodycomposition') {
+    frame.src = baseUrl + '?page=body';
+  } else {
+    frame.src = baseUrl;
+  }
 })();
 </script>
 
