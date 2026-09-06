@@ -59,22 +59,30 @@ iframe{
 
 
 
+
 <script>
 (function() {
   var frame = document.getElementById('dashboardFrame');
   var baseUrl = 'https://script.google.com/macros/s/AKfycbzmlU9QK4Bio6JDcoWQTsmmdRC4Dw1hSIIjdiHKhF6Veu0N9DJen2SFjQwbGukQT30M9w/exec';
 
   function applyRoute() {
-    var view = (window.location.hash || '#weight').replace('#', '').toLowerCase();
+    var route = (window.location.hash || '#weight').replace('#', '').toLowerCase();
+    var src = baseUrl;
 
-    if (view === 'body' || view === 'bodycomposition') {
-      if (frame.getAttribute('src') !== baseUrl + '?page=body') {
-        frame.src = baseUrl + '?page=body';
-      }
+    if (route === 'body' || route === 'body-current') {
+      src = baseUrl + '?page=body&view=current';
+    } else if (route === 'body-change-30d') {
+      src = baseUrl + '?page=body&view=change&period=30d';
+    } else if (route === 'body-change-90d') {
+      src = baseUrl + '?page=body&view=change&period=90d';
+    } else if (route === 'body-change-all') {
+      src = baseUrl + '?page=body&view=change&period=all';
     } else {
-      if (frame.getAttribute('src') !== baseUrl) {
-        frame.src = baseUrl;
-      }
+      src = baseUrl;
+    }
+
+    if (frame.getAttribute('src') !== src) {
+      frame.src = src;
     }
   }
 
